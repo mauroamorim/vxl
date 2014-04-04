@@ -207,21 +207,21 @@ int main()
   // GLX window code straight out of http://www.eecs.tulane.edu/www/graphics/doc/OpenGL-Man-Pages/glXIntro.html
   vcl_cerr << "Opening double-buffered, RGBA GLX context...\n\n";
   Display* display = XOpenDisplay(0);
-  XVisualInfo* visualinfo = glXChooseVisual (display, DefaultScreen(display), attribs);
-  GLXContext context = glXCreateContext (display, visualinfo, 0, GL_TRUE);
+//  XVisualInfo* visualinfo = glXChooseVisual (display, DefaultScreen(display), attribs);
+ // GLXContext context = glXCreateContext (display, visualinfo, 0, GL_TRUE);
 
-  Colormap cmap = XCreateColormap(display, RootWindow(display, visualinfo->screen), visualinfo->visual, AllocNone);
+//  Colormap cmap = XCreateColormap(display, RootWindow(display, visualinfo->screen), visualinfo->visual, AllocNone);
 
   // create a window
   XSetWindowAttributes swa;
-  swa.colormap = cmap;
+//  swa.colormap = cmap;
   swa.border_pixel = 0;
   swa.event_mask = StructureNotifyMask;
-  Window window = XCreateWindow(display, RootWindow(display,visualinfo->screen),
-                                0, 0, 512, 512, 0, visualinfo->depth, InputOutput,
-                                visualinfo->visual, CWBorderPixel|CWColormap|CWEventMask, &swa);
+//  Window window = XCreateWindow(display, RootWindow(display,visualinfo->screen),
+//                                0, 0, 512, 512, 0, visualinfo->depth, InputOutput,
+//                                visualinfo->visual, CWBorderPixel|CWColormap|CWEventMask, &swa);
 
-  glXMakeCurrent(display, window, context);
+//  glXMakeCurrent(display, window, context);
 
   bool little_endian = (ImageByteOrder(display) == LSBFirst);
   vcl_cerr << "GL_VERSION : " <<  (const char*) glGetString(GL_VERSION) << '\n'
@@ -229,10 +229,10 @@ int main()
            << "X Display -\n"
            << "      byte-order : " << (little_endian ? "little" : "big") << "-endian\n\n"
            << "XVisualInfo -\n"
-           << "           depth : " << visualinfo->depth << vcl_endl
-           << "        red-mask : " << vcl_hex << visualinfo->red_mask << '\n'
-           << "      green-mask : " << vcl_hex << visualinfo->green_mask << '\n'
-           << "       blue-mask : " << vcl_hex << visualinfo->blue_mask << "\n\n"
+//           << "           depth : " << visualinfo->depth << vcl_endl
+//           << "        red-mask : " << vcl_hex << visualinfo->red_mask << '\n'
+//           << "      green-mask : " << vcl_hex << visualinfo->green_mask << '\n'
+//           << "       blue-mask : " << vcl_hex << visualinfo->blue_mask << "\n\n"
            << "GL Gets -\n";
   GLint data_int;
   glGetIntegerv(GL_RED_BITS, &data_int);

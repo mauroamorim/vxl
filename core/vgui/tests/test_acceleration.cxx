@@ -94,21 +94,21 @@ int main()
   // http://www.eecs.tulane.edu/www/graphics/doc/OpenGL-Man-Pages/glXIntro.html
   vcl_cerr << "Opening double-buffered, RGBA GLX context...\n\n";
   Display* display = XOpenDisplay(0);
-  XVisualInfo* visualinfo = glXChooseVisual (display, DefaultScreen(display), attribs);
-  GLXContext context = glXCreateContext (display, visualinfo, 0, GL_TRUE);
+  //XVisualInfo* visualinfo = glXChooseVisual (display, DefaultScreen(display), attribs);
+//  GLXContext context = glXCreateContext (display, visualinfo, 0, GL_TRUE);
 
-  Colormap cmap = XCreateColormap(display, RootWindow(display, visualinfo->screen), visualinfo->visual, AllocNone);
+//  Colormap cmap = XCreateColormap(display, RootWindow(display, visualinfo->screen), visualinfo->visual, AllocNone);
 
   // create a window
   XSetWindowAttributes swa;
-  swa.colormap = cmap;
+//  swa.colormap = cmap;
   swa.border_pixel = 0;
   swa.event_mask = StructureNotifyMask;
-  Window window = XCreateWindow(display, RootWindow(display, visualinfo->screen),
-                                0, 0, 512, 512, 0, visualinfo->depth, InputOutput,
-                                visualinfo->visual, CWBorderPixel|CWColormap|CWEventMask, &swa);
+//  Window window = XCreateWindow(display, RootWindow(display, visualinfo->screen),
+//                                0, 0, 512, 512, 0, visualinfo->depth, InputOutput,
+//                                visualinfo->visual, CWBorderPixel|CWColormap|CWEventMask, &swa);
 
-  glXMakeCurrent(display, window, context);
+//  glXMakeCurrent(display, window, context);
 
   bool little_endian = (ImageByteOrder(display) == LSBFirst);
 
@@ -117,10 +117,10 @@ int main()
            << "X Display -\n"
            << "      byte-order : " << (little_endian ? "little" : "big") << "-endian\n\n"
            << "XVisualInfo -\n"
-           << "           depth : " << visualinfo->depth << '\n'
-           << "        red-mask : " << vcl_hex << visualinfo->red_mask << '\n'
-           << "      green-mask : " << vcl_hex << visualinfo->green_mask << '\n'
-           << "       blue-mask : " << vcl_hex << visualinfo->blue_mask << "\n\n"
+//           << "           depth : " << visualinfo->depth << '\n'
+//           << "        red-mask : " << vcl_hex << visualinfo->red_mask << '\n'
+//           << "      green-mask : " << vcl_hex << visualinfo->green_mask << '\n'
+//           << "       blue-mask : " << vcl_hex << visualinfo->blue_mask << "\n\n"
            << "GL Gets -\n";
   GLint data_int;
   glGetIntegerv(GL_RED_BITS, &data_int);
@@ -228,38 +228,38 @@ int main()
     vcl_cerr << 512*512*draws / (elapsed / 1000.0) << " pixels per second\n";
   }
 
-  XMapWindow(display, window);
+//  XMapWindow(display, window);
   XEvent event;
-  XIfEvent(display, &event, WaitForNotify, (char*)window);
+//  XIfEvent(display, &event, WaitForNotify, (char*)window);
 
   vcl_cerr << "Rendering 16-bit RGB pattern -\n";
   pattern_RGB16(global_data);
   vcl_cerr << "  glDrawPixels...\n";
   glDrawPixels(512,512,GL_RGB,GLenum(GL_UNSIGNED_SHORT_5_6_5),global_data);
-  glXSwapBuffers(display, window);
+//  glXSwapBuffers(display, window);
   vpl_sleep(2);
   vcl_cerr << "  vgui_accelerate::instance()->vgui_glDrawPixels...\n";
   vgui_accelerate::instance()->vgui_glClear(GL_COLOR_BUFFER_BIT);
   vgui_accelerate::instance()->vgui_glDrawPixels(512,512,GL_RGB,GLenum(GL_UNSIGNED_SHORT_5_6_5),(void *)global_data);
-  glXSwapBuffers(display, window);
+//  glXSwapBuffers(display, window);
   vpl_sleep(2);
   glRasterPos2i(45,67);
   vcl_cerr << "  vgui_accelerate::instance()->vgui_glDrawPixels...\n";
   vgui_accelerate::instance()->vgui_glClear(GL_COLOR_BUFFER_BIT);
   vgui_accelerate::instance()->vgui_glDrawPixels(512,512,GL_RGB,GLenum(GL_UNSIGNED_SHORT_5_6_5),global_data);
-  glXSwapBuffers(display, window);
+//  glXSwapBuffers(display, window);
   vpl_sleep(1);
   glPixelZoom(0.4f, 0.6f);
   vcl_cerr << "  vgui_accelerate::instance()->vgui_glDrawPixels...\n";
   vgui_accelerate::instance()->vgui_glClear(GL_COLOR_BUFFER_BIT);
   vgui_accelerate::instance()->vgui_glDrawPixels(512,512,GL_RGB,GLenum(GL_UNSIGNED_SHORT_5_6_5),global_data);
-  glXSwapBuffers(display, window);
+//  glXSwapBuffers(display, window);
   vpl_sleep(1);
   glPixelZoom(1.8f, 0.3f);
   vcl_cerr << "  vgui_accelerate::instance()->vgui_glDrawPixels...\n";
   vgui_accelerate::instance()->vgui_glClear(GL_COLOR_BUFFER_BIT);
   vgui_accelerate::instance()->vgui_glDrawPixels(512,512,GL_RGB,GLenum(GL_UNSIGNED_SHORT_5_6_5),global_data);
-  glXSwapBuffers(display, window);
+//  glXSwapBuffers(display, window);
   vpl_sleep(1);
 
 #if 0
